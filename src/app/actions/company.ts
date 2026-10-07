@@ -70,6 +70,11 @@ export async function updateCompany(
     return {
       error: "Solo el propietario o un administrador pueden editar el negocio.",
     };
+  if (form.get("company_id") !== company.id)
+    return {
+      error:
+        "La empresa activa cambió. Recarga Configuración antes de guardar.",
+    };
   const parsed = companySchema.safeParse({
     ...Object.fromEntries(form),
     has_locations: form.get("has_locations") === "true",
