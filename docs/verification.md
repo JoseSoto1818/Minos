@@ -42,3 +42,20 @@ Revisados registro, onboarding, bienvenida y configuración en escritorio y móv
 ## Configuración reutilizable
 
 Se guardaron `install_script` y `start_skill` en el borrador de configuración del entorno. Describen instalación congelada, inicio local, migraciones, comprobaciones y pruebas, preservando archivos y volúmenes. Guardar el borrador no publica el entorno: revisarlo y guardarlo en Configuración del entorno y luego publicarlo es un paso del producto.
+
+## Extensión visual: primer paso para agregar información
+
+Validada la navegación Inicio → “Agregar mis números” → selector de tres opciones → entrada manual con seis categorías. Las opciones de Excel/CSV y plantilla llevan a pantallas iniciales con disponibilidad futura explícita, sin carga ni descarga simulada.
+
+Las pruebas Playwright existentes ahora también verifican estas rutas protegidas, los seis diálogos, cierre con Escape y recuperación del foco, regreso a las opciones y ausencia de peticiones de escritura durante la exploración. En móvil se verifica que el CTA quede por encima de la barra inferior antes de hacer scroll. Se mantienen las comprobaciones de autenticación, onboarding, empresas y configuración.
+
+TypeScript, lint y build correctos; 7 pruebas unitarias, 22 comprobaciones SQL y 4 recorridos E2E aprobados. Las capturas de la versión de producción se revisaron en escritorio y móvil, claro y oscuro, sin errores de consola ni desbordamiento horizontal.
+
+- [Inicio móvil con CTA visible](screenshots/entrada-inicial/inicio-movil.png)
+- [Opciones en escritorio](screenshots/entrada-inicial/opciones-escritorio.png)
+- [Opciones en móvil](screenshots/entrada-inicial/opciones-movil.png)
+- [Categorías manuales en escritorio](screenshots/entrada-inicial/manual-escritorio.png)
+- [Categorías manuales en móvil](screenshots/entrada-inicial/manual-movil.png)
+- [Opciones en modo oscuro](screenshots/entrada-inicial/opciones-oscuro-escritorio.png)
+
+No se incorporan cálculos, persistencia financiera, importadores ni IA. No cambia el esquema, RLS, autenticación ni las acciones existentes. Esta extensión visual no supone comenzar el Sprint 2 completo ni hacer merge.

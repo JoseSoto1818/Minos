@@ -17,7 +17,13 @@ Minos es visibilidad, gestión y apoyo a decisiones para pymes hispanohablantes.
 
 Acceso, empresas, roles, preferencias, sedes básicas, onboarding de tres pasos, contexto multiempresa, bienvenida, equipo informativo, configuración y temas. No pedir dirección, teléfono, NIT, tamaño ni pago.
 
-Navegación: Inicio, Equipo y Configuración. Módulos financieros sin rutas ni botones activos. Bienvenida con “Próximamente” y ausencia de cifras explícita. Intereses opcionales, empresa/propietario creados en una sola transacción.
+Navegación: Inicio, Equipo y Configuración. Ausencia de cifras explícita. Intereses opcionales, empresa/propietario creados en una sola transacción.
+
+### Extensión visual aprobada: agregar información
+
+Inicio ofrece “Agregar mis números” y el mensaje “Puedes empezar con tan poco como tus ventas y gastos del mes.” El recorrido `/inicio/agregar` presenta entrada manual, Excel/CSV y plantilla de Minos. La pantalla manual muestra los seis tipos solicitados (venta/ingreso, compra/gasto, dinero que te deben, dinero que debes, activo/inversión y préstamo) con ayuda contextual.
+
+Esta extensión es solo visual y de navegación: no guarda información, no calcula ni importa archivos. Las pantallas de archivo y plantilla indican disponibilidad futura y mantienen deshabilitadas la carga/descarga. Se conserva la autenticación y el contexto de empresa del shell existente. No es una implementación del Sprint 2.
 
 ## Siguientes sprints, con aprobación
 

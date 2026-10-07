@@ -46,7 +46,9 @@ export function AppShell({
 }) {
   const pathname = usePathname();
   const currentPage =
-    navigation.find((item) => pathname.startsWith(item.href))?.label ??
+    (pathname.startsWith("/inicio/agregar")
+      ? "Agregar información"
+      : navigation.find((item) => pathname.startsWith(item.href))?.label) ??
     "Conoce Minos";
   const companyMenu = (
     <Menu.Root>
