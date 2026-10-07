@@ -22,13 +22,13 @@ export default async function Home() {
     <div className="fade-in space-y-7">
       <section className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="mb-2 text-xs font-medium text-muted-foreground">
+          <p className="mb-2 hidden text-xs font-medium text-muted-foreground sm:block">
             UN BUEN LUGAR PARA EMPEZAR
           </p>
           <h1 className="text-[28px] font-semibold tracking-tight sm:text-[32px]">
             Bienvenido a tu espacio.
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-2 hidden text-sm text-muted-foreground sm:block">
             Cada gran negocio se construye una decisión a la vez.
           </p>
         </div>
@@ -39,29 +39,29 @@ export default async function Home() {
       </section>
       <section className="relative overflow-hidden rounded-[20px] border border-border bg-card">
         <div className="grid lg:grid-cols-[1.25fr_1fr]">
-          <div className="px-7 py-9 sm:p-10">
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1.5 text-[11px] font-medium text-accent-foreground">
+          <div className="px-6 py-7 sm:p-10">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1.5 text-[11px] font-medium text-accent-foreground sm:mb-6">
               <Sprout size={14} />
               AQUÍ EMPIEZA TU CLARIDAD
             </span>
-            <h2 className="max-w-md text-[30px] leading-[1.18] font-medium tracking-[-1px] sm:text-[38px]">
+            <h2 className="max-w-md text-[26px] leading-[1.18] font-medium tracking-[-1px] sm:text-[38px]">
               Tu negocio tiene una historia.
               <br />
               <span className="text-primary">Démosle claridad.</span>
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-7 text-muted-foreground">
-              Ya tienes un lugar para {company.name}. Pronto podrás reunir tus
-              números y entender cómo va tu negocio, sin complicaciones.
+            <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground sm:mt-5 sm:leading-7">
+              El espacio de {company.name} está listo. Elige cómo agregar tu
+              información.
             </p>
             <Link
-              href="/configuracion"
-              className="mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-medium text-primary-foreground hover:opacity-90"
+              href="/inicio/agregar"
+              className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-medium text-primary-foreground hover:opacity-90 focus-visible:outline-primary sm:w-auto"
             >
-              Revisar mi negocio
+              Agregar mis números
               <ArrowRight size={16} />
             </Link>
             <p className="mt-4 text-xs text-muted-foreground">
-              Lo esencial está listo. El siguiente paso vendrá a tu ritmo.
+              Puedes empezar con tan poco como tus ventas y gastos del mes.
             </p>
           </div>
           <div
@@ -102,9 +102,9 @@ export default async function Home() {
         <div className="mb-4 flex items-center gap-2">
           <h2 className="text-base font-semibold">Un comienzo simple</h2>
           <Help title="Tu primer paso">
-            Tu empresa ya está configurada. No necesitas información financiera
-            para explorar este espacio. Los módulos de datos se incorporarán más
-            adelante.
+            Tu empresa ya está configurada. En “Agregar mis números” puedes
+            explorar las formas de ingresar tu información. La captura y el
+            guardado estarán disponibles próximamente.
           </Help>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
@@ -119,9 +119,10 @@ export default async function Home() {
             {
               n: "02",
               icon: FileSpreadsheet,
-              title: "Tus números, en un lugar",
-              copy: "Podrás empezar con tus datos principales o con un archivo de tu negocio.",
+              title: "Elige cómo empezar",
+              copy: "Conoce la entrada manual, la carga de archivos y la plantilla de Minos.",
               ready: false,
+              href: "/inicio/agregar",
             },
             {
               n: "03",
@@ -130,7 +131,7 @@ export default async function Home() {
               copy: "Entender tus ventas, gastos y resultados será el siguiente paso.",
               ready: false,
             },
-          ].map(({ n, icon: Icon, title, copy, ready }) => (
+          ].map(({ n, icon: Icon, title, copy, ready, href }) => (
             <article
               key={n}
               className="rounded-2xl border border-border bg-card p-6"
@@ -147,16 +148,26 @@ export default async function Home() {
               <p className="mb-5 mt-2 text-xs leading-6 text-muted-foreground">
                 {copy}
               </p>
-              <span
-                className={
-                  ready
-                    ? "inline-flex items-center gap-1.5 text-xs text-success"
-                    : "inline-flex items-center gap-1.5 text-xs text-muted-foreground"
-                }
-              >
-                {ready ? <Check size={14} /> : <LockKeyhole size={12} />}{" "}
-                {ready ? "Listo para ti" : "Próximamente"}
-              </span>
+              {href ? (
+                <Link
+                  href={href}
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline focus-visible:outline-primary"
+                >
+                  Ver opciones
+                  <ArrowRight size={14} />
+                </Link>
+              ) : (
+                <span
+                  className={
+                    ready
+                      ? "inline-flex items-center gap-1.5 text-xs text-success"
+                      : "inline-flex items-center gap-1.5 text-xs text-muted-foreground"
+                  }
+                >
+                  {ready ? <Check size={14} /> : <LockKeyhole size={12} />}{" "}
+                  {ready ? "Listo para ti" : "Próximamente"}
+                </span>
+              )}
             </article>
           ))}
         </div>

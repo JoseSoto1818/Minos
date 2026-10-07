@@ -2,7 +2,7 @@
 
 Visibilidad y gestión financiera para pequeñas y medianas empresas. Minos ayuda a entender el negocio con lenguaje cotidiano; complementa la contabilidad.
 
-Esta entrega implementa **solo el Sprint 1**: registro e inicio de sesión, onboarding persistente, empresas y membresías, sedes, roles, configuración, navegación adaptable y temas claro/oscuro. El inicio es una bienvenida sin cifras financieras ficticias.
+Esta entrega implementa **solo el Sprint 1**: registro e inicio de sesión, onboarding persistente, empresas y membresías, sedes, roles, configuración, navegación adaptable y temas claro/oscuro. El inicio es una bienvenida sin cifras financieras ficticias. Una extensión visual aprobada permite explorar “Agregar mis números”: entrada manual con seis tipos de información, archivo y plantilla. Todavía no captura, guarda ni procesa datos financieros.
 
 ## Stack
 

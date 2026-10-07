@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { checkEntryNavigation } from "./data-entry-navigation";
 
 async function noHorizontalOverflow(page: Page) {
   expect(
@@ -14,6 +15,8 @@ test("public navigation, protected routes and Spanish auth forms", async ({
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/inicio");
+  await expect(page).toHaveURL(/iniciar-sesion/);
+  await page.goto("/inicio/agregar/manual");
   await expect(page).toHaveURL(/iniciar-sesion/);
   await expect(
     page.getByRole("heading", { name: "Qué bueno verte de nuevo." }),
@@ -104,7 +107,8 @@ test("registration, company onboarding, settings, themes, switch and persistent 
     fullPage: true,
     animations: "disabled",
   });
-  await page.getByRole("link", { name: "Revisar mi negocio" }).click();
+  await checkEntryNavigation(page, testInfo);
+  await page.getByRole("link", { name: "Ver configuración" }).click();
   await expect(page.getByLabel("Nombre del negocio")).toHaveValue(companyName);
   await expect(page.getByText("Sede Centro", { exact: true })).toBeVisible();
   await page
