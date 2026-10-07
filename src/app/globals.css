@@ -1,0 +1,147 @@
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #f7f9fb;
+  --foreground: #1a2d39;
+  --card: #ffffff;
+  --card-foreground: #1a2d39;
+  --primary: #147d92;
+  --primary-foreground: #ffffff;
+  --muted: #edf2f5;
+  --muted-foreground: #617482;
+  --border: #e3e9ed;
+  --input: #d6e0e6;
+  --accent: #e9f5f6;
+  --accent-foreground: #106c7e;
+  --success: #287b57;
+  --warning: #93661b;
+  --destructive: #bd3c49;
+  --sidebar: #ffffff;
+}
+.dark {
+  --background: #0e1821;
+  --foreground: #e7eef3;
+  --card: #14222d;
+  --card-foreground: #e7eef3;
+  --primary: #5cc4d4;
+  --primary-foreground: #092a35;
+  --muted: #1c2e3b;
+  --muted-foreground: #9ab0bf;
+  --border: #293b48;
+  --input: #354956;
+  --accent: #183841;
+  --accent-foreground: #87d7e2;
+  --success: #7bc9a0;
+  --warning: #e8bd71;
+  --destructive: #f68a93;
+  --sidebar: #12202a;
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
+  --color-sidebar: var(--sidebar);
+  --font-sans: var(--font-geist-sans);
+}
+* {
+  border-color: var(--border);
+}
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "ss01";
+}
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+button,
+input,
+select,
+a {
+  touch-action: manipulation;
+}
+a,
+button,
+input,
+select {
+  outline-offset: 4px;
+}
+::selection {
+  background: #97d5df77;
+}
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+html:not(.dark) [data-theme-option="light"],
+html.dark [data-theme-option="dark"] {
+  background: var(--muted);
+  color: var(--foreground);
+}
+.ocean-art {
+  background:
+    radial-gradient(ellipse at 15% 80%, #16788b 0%, transparent 55%), #103c4c;
+}
+.ocean-lines {
+  background-image: repeating-radial-gradient(
+    ellipse at 60% 100%,
+    transparent 0px,
+    transparent 39px,
+    #ffffff0b 40px,
+    transparent 41px
+  );
+}
+.fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media print {
+  aside,
+  nav,
+  header {
+    display: none !important;
+  }
+}
