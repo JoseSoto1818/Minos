@@ -59,3 +59,11 @@ TypeScript, lint y build correctos; 7 pruebas unitarias, 22 comprobaciones SQL y
 - [Opciones en modo oscuro](screenshots/entrada-inicial/opciones-oscuro-escritorio.png)
 
 No se incorporan cálculos, persistencia financiera, importadores ni IA. No cambia el esquema, RLS, autenticación ni las acciones existentes. Esta extensión visual no supone comenzar el Sprint 2 completo ni hacer merge.
+
+## Perfil del negocio en Configuración
+
+La sección muestra el perfil guardado y permite abrir la edición con “Editar perfil del negocio”. Incluye nombre, sector, tipo de negocio, país, moneda, zona horaria y configuración de sedes. Cancelar descarta la edición local. Solo propietarios y administradores pueden guardar; se conserva la validación del servidor y RLS.
+
+El formulario identifica la empresa que se abrió y el servidor comprueba que siga siendo la empresa activa autorizada. Si cambió en otra pestaña, rechaza el guardado. Cambiar el tipo solo actualiza la configuración de la empresa: no borra información ni reinicia onboarding. Desactivar varias sedes conserva sus registros para volver a mostrarlos al reactivarlas. Las futuras interfaces deben consultar el `business_type` y `has_locations` actuales de `requireCompany`, sin fijar los valores del onboarding.
+
+La regresión E2E cubre los tres tipos de negocio, persistencia tras recarga, país/moneda, cancelación, conservación de sedes y rechazo de un formulario de otra empresa activa, en escritorio y móvil. Se mantienen las pruebas SQL de roles y aislamiento multiempresa.

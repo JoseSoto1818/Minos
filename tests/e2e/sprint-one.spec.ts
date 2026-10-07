@@ -12,6 +12,7 @@ async function noHorizontalOverflow(page: Page) {
 test("public navigation, protected routes and Spanish auth forms", async ({
   page,
 }, testInfo) => {
+  test.setTimeout(120_000);
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/inicio");
@@ -64,6 +65,7 @@ test("registration, company onboarding, settings, themes, switch and persistent 
     process.env.MINOS_E2E_AUTH !== "1",
     "Requires the local Supabase stack; no production accounts are created.",
   );
+  test.setTimeout(120_000);
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("console", (message) => {
@@ -109,6 +111,7 @@ test("registration, company onboarding, settings, themes, switch and persistent 
   });
   await checkEntryNavigation(page, testInfo);
   await page.getByRole("link", { name: "Ver configuración" }).click();
+  await page.getByRole("button", { name: "Editar perfil del negocio" }).click();
   await expect(page.getByLabel("Nombre del negocio")).toHaveValue(companyName);
   await expect(page.getByText("Sede Centro", { exact: true })).toBeVisible();
   await page
@@ -116,6 +119,33 @@ test("registration, company onboarding, settings, themes, switch and persistent 
     .fill("Taller Horizonte actualizado");
   await page.getByRole("button", { name: "Guardar cambios" }).click();
   await expect(page.getByRole("status")).toContainText("se guardaron");
+  // Every business type is reversible; existing locations survive disabling them.
+  for (const kind of ["services", "both", "products"]) {
+    await page
+      .getByRole("button", { name: "Editar perfil del negocio" })
+      .click();
+    await page.getByLabel("Tipo de negocio").selectOption(kind);
+    await page.getByLabel("País", { exact: true }).selectOption("MX");
+    await page.getByLabel("Moneda principal").selectOption("MXN");
+    await page.getByLabel("Sedes", { exact: true }).selectOption("false");
+    await page.getByRole("button", { name: "Guardar cambios" }).click();
+    await expect(
+      page.getByRole("button", { name: "Editar perfil del negocio" }),
+    ).toBeVisible();
+    await page.reload();
+    await page
+      .getByRole("button", { name: "Editar perfil del negocio" })
+      .click();
+    await expect(page.getByLabel("Tipo de negocio")).toHaveValue(kind);
+    await expect(page.getByLabel("País", { exact: true })).toHaveValue("MX");
+    await expect(page.getByLabel("Moneda principal")).toHaveValue("MXN");
+    await page.getByLabel("Sedes", { exact: true }).selectOption("true");
+    await page.getByRole("button", { name: "Guardar cambios" }).click();
+    await expect(page.getByText("Sede Centro", { exact: true })).toBeVisible();
+  }
+  await page.getByRole("button", { name: "Editar perfil del negocio" }).click();
+  await page.getByLabel("Nombre del negocio").fill("Cambio cancelado");
+  await page.getByRole("button", { name: "Cancelar", exact: true }).click();
   await page.getByLabel("Nueva sede").fill("Sede Norte");
   await page.getByRole("button", { name: /Agregar/ }).click();
   await expect(page.getByText("Sede Norte", { exact: true })).toBeVisible();
@@ -140,6 +170,14 @@ test("registration, company onboarding, settings, themes, switch and persistent 
   await expect(page.getByText(email, { exact: false }).first()).toBeVisible();
   await page.goto("/onboarding");
   await expect(page).toHaveURL(/inicio/);
+  const stalePage = await page.context().newPage();
+  await stalePage.goto("/configuracion");
+  await stalePage
+    .getByRole("button", { name: "Editar perfil del negocio" })
+    .click();
+  await stalePage
+    .getByLabel("Nombre del negocio")
+    .fill("No debe sobrescribir otra empresa");
   await page.goto("/onboarding?nuevo=1");
   await page
     .getByLabel("¿Cómo se llama tu negocio?")
@@ -149,6 +187,21 @@ test("registration, company onboarding, settings, themes, switch and persistent 
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
   await page.getByRole("button", { name: "Entrar a mi negocio" }).click();
   await expect(page).toHaveURL(/inicio/);
+  await stalePage.getByRole("button", { name: "Guardar cambios" }).click();
+  await expect(
+    stalePage
+      .getByRole("alert")
+      .filter({ hasText: "La empresa activa cambió" }),
+  ).toContainText("La empresa activa cambió");
+  await stalePage.close();
+  await page.goto("/configuracion");
+  await page.getByRole("button", { name: "Editar perfil del negocio" }).click();
+  await expect(page.getByLabel("Nombre del negocio")).toHaveValue(
+    "Segundo negocio QA",
+  );
+  await expect(page.getByLabel("País", { exact: true })).toHaveValue("CO");
+  await expect(page.getByLabel("Moneda principal")).toHaveValue("COP");
+  await page.getByRole("button", { name: "Cancelar", exact: true }).click();
   await page
     .getByRole("button", { name: "Cambiar empresa" })
     .filter({ visible: true })
@@ -169,6 +222,7 @@ test("registration, company onboarding, settings, themes, switch and persistent 
   await page.getByRole("button", { name: "Entrar a mi negocio" }).click();
   await expect(page).toHaveURL(/inicio/);
   await page.goto("/configuracion");
+  await page.getByRole("button", { name: "Editar perfil del negocio" }).click();
   await expect(page.getByLabel("Nombre del negocio")).toHaveValue(
     "Taller Horizonte actualizado",
   );

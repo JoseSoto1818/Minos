@@ -54,13 +54,15 @@ export default async function Settings() {
                 <Building2 size={19} />
               </span>
               <div>
-                <h2 className="text-base font-semibold">Tu negocio</h2>
+                <h2 className="text-base font-semibold">Perfil del negocio</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  La base de tu espacio en Minos.
+                  La información que define tu negocio, siempre actualizada.
                 </p>
               </div>
             </div>
             <SettingsForm
+              key={company.id}
+              companyId={company.id}
               company={companySchema.parse(company)}
               editable={editable}
             />
