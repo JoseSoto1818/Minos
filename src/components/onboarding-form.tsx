@@ -399,8 +399,8 @@ export function OnboardingForm() {
               {businessTypes[kind]}
             </p>
             <p className="mt-3 text-xs leading-5 text-muted-foreground">
-              Tu espacio estará listo. La carga y el análisis de datos
-              financieros estarán disponibles en una próxima etapa.
+              Tu espacio estará listo para registrar tus números manualmente y
+              empezar a entender tus ingresos, gastos y cuentas pendientes.
             </p>
           </div>
         </div>

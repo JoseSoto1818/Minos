@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { checkFinancialEntry } from "./financial-entry";
 import { checkEntryNavigation } from "./data-entry-navigation";
 
 async function noHorizontalOverflow(page: Page) {
@@ -60,6 +61,7 @@ test("public navigation, protected routes and Spanish auth forms", async ({
 test("registration, company onboarding, settings, themes, switch and persistent return", async ({
   page,
 }, testInfo) => {
+  test.setTimeout(180_000);
   test.skip(
     process.env.MINOS_E2E_AUTH !== "1",
     "Requires the local Supabase stack; no production accounts are created.",
@@ -173,5 +175,6 @@ test("registration, company onboarding, settings, themes, switch and persistent 
     "Taller Horizonte actualizado",
   );
   await expect(page.getByText("Sede Norte", { exact: true })).toBeVisible();
+  await checkFinancialEntry(page, testInfo);
   expect(errors).toEqual([]);
 });

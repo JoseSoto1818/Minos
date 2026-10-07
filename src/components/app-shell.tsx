@@ -9,6 +9,7 @@ import {
   ChevronsUpDown,
   CircleHelp,
   Home,
+  History,
   LogOut,
   Plus,
   Settings2,
@@ -24,6 +25,7 @@ import { switchCompany } from "@/app/actions/company";
 
 const navigation = [
   { href: "/inicio", label: "Inicio", icon: Home },
+  { href: "/historial", label: "Historial", icon: History },
   { href: "/equipo", label: "Equipo", icon: Users },
   { href: "/configuracion", label: "Configuración", icon: Settings2 },
 ];

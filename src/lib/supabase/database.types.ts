@@ -1,4 +1,4 @@
-// Schema contract for 202610060001_foundation.sql. Regenerate after schema changes.
+// Schema contract including 202610070001_financial_entry.sql.
 export type Json =
   | string
   | number
@@ -72,9 +72,41 @@ export type Database = {
         Pick<Location, "company_id" | "name" | "created_by"> & Partial<Location>
       >;
       audit_events: Table<Audit>;
+      financial_transactions: Table<
+        Omit<import("../finance").FinancialRecord, "amount" | "paid"> & {
+          amount: number;
+          paid: number;
+          paid_before_close: number | null;
+        }
+      >;
+      receivables: Table<{ transaction_id: string; company_id: string }>;
+      payables: Table<{ transaction_id: string; company_id: string }>;
+      assets: Table<{ transaction_id: string; company_id: string }>;
+      loans: Table<{ transaction_id: string; company_id: string }>;
     };
     Views: { [_ in never]: never };
     Functions: {
+      save_financial: {
+        Args: {
+          target: string;
+          payload: Json;
+          record_id?: string;
+          expected_version?: string;
+        };
+        Returns: string;
+      };
+      change_financial: {
+        Args: {
+          target: string;
+          record_id: string;
+          operation: string;
+          expected_version: string;
+          confirmation?: string;
+        };
+        Returns: undefined;
+      };
+      list_financial: { Args: { target: string }; Returns: Json };
+
       create_company: {
         Args: {
           company_name: string;

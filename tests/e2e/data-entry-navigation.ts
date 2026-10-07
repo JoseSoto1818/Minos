@@ -62,16 +62,17 @@ export async function checkEntryNavigation(page: Page, testInfo: TestInfo) {
     "Activo / inversión",
     "Préstamo",
   ]) {
-    const option = page.getByRole("button", { name: new RegExp(`^${title}`) });
+    const option = page.getByRole("link", { name: new RegExp(`^${title}`) });
     await option.click();
-    const dialog = page.getByRole("dialog", { name: title });
-    await expect(dialog).toBeVisible();
     await expect(
-      dialog.getByText(/Todavía no se guarda información/),
+      page.getByRole("heading", { name: title, exact: true }),
     ).toBeVisible();
-    await page.keyboard.press("Escape");
-    await expect(dialog).not.toBeVisible();
-    await expect(option).toBeFocused();
+    await expect(
+      page
+        .getByLabel("Fecha", { exact: true })
+        .or(page.getByLabel("Fecha inicial")),
+    ).toBeVisible();
+    await page.getByRole("link", { name: "← Volver", exact: true }).click();
   }
   await page
     .getByRole("link", { name: "Volver a las opciones", exact: true })
