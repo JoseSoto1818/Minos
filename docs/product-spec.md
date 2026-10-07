@@ -37,3 +37,7 @@ Preservar importes originales, moneda, conversiones conocidas y auditoría. No m
 ## Fuera del MVP
 
 IA generativa, pronósticos, simulación, puntuación de salud, WhatsApp, apps nativas, integraciones contables/bancarias avanzadas, nómina/inventario avanzados, depreciación compleja, motor automático de divisas, marca blanca y suscripciones complejas. V2/V3 requieren otro contrato; no se presupone su contenido.
+
+## Sprint 2A autorizado
+
+Se habilita captura financiera manual real, persistencia, historial y dashboard inicial. El alcance y las reglas de cálculo/permisos se documentan en [Sprint 2A](sprint-2a.md). Las pantallas informativas de captura manual del bloque anterior se reemplazan por formularios funcionales; importación de archivos y herramientas avanzadas permanecen fuera de alcance.

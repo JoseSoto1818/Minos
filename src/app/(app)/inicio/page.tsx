@@ -11,13 +11,26 @@ import {
   SlidersHorizontal,
   Sprout,
 } from "lucide-react";
-import { requireCompany } from "@/lib/context";
+import { financialContext } from "@/lib/financial-data";
+import { Dashboard } from "@/components/finance/dashboard";
 import { businessTypes, countries } from "@/lib/constants";
 import { Help } from "@/components/ui/help";
 
 export const metadata = { title: "Inicio" };
-export default async function Home() {
-  const { company } = await requireCompany();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
+  const { company, records } = await financialContext();
+  if (records.length)
+    return (
+      <Dashboard
+        records={records}
+        company={company}
+        query={await searchParams}
+      />
+    );
   return (
     <div className="fade-in space-y-7">
       <section className="flex flex-wrap items-start justify-between gap-4">
@@ -103,8 +116,7 @@ export default async function Home() {
           <h2 className="text-base font-semibold">Un comienzo simple</h2>
           <Help title="Tu primer paso">
             Tu empresa ya está configurada. En “Agregar mis números” puedes
-            explorar las formas de ingresar tu información. La captura y el
-            guardado estarán disponibles próximamente.
+            registrar ingresos, gastos, cuentas, activos y préstamos.
           </Help>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
@@ -128,8 +140,9 @@ export default async function Home() {
               n: "03",
               icon: SlidersHorizontal,
               title: "Más claridad para decidir",
-              copy: "Entender tus ventas, gastos y resultados será el siguiente paso.",
+              copy: "Consulta tus ingresos, gastos y resultados a partir de tus registros.",
               ready: false,
+              href: "/historial",
             },
           ].map(({ n, icon: Icon, title, copy, ready, href }) => (
             <article
@@ -232,7 +245,7 @@ export default async function Home() {
       </div>
       <p className="text-center text-[11px] text-muted-foreground">
         Aún no has agregado información financiera. Aquí verás tus resultados
-        cuando esté disponible la carga de datos.
+        cuando registres tus primeros números.
       </p>
     </div>
   );

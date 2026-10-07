@@ -2,13 +2,15 @@
 
 Visibilidad y gestión financiera para pequeñas y medianas empresas. Minos ayuda a entender el negocio con lenguaje cotidiano; complementa la contabilidad.
 
-Esta entrega implementa **solo el Sprint 1**: registro e inicio de sesión, onboarding persistente, empresas y membresías, sedes, roles, configuración, navegación adaptable y temas claro/oscuro. El inicio es una bienvenida sin cifras financieras ficticias. Una extensión visual aprobada permite explorar “Agregar mis números”: entrada manual con seis tipos de información, archivo y plantilla. Todavía no captura, guarda ni procesa datos financieros.
+Esta entrega incorpora **Sprint 2A** sobre Sprint 1: captura manual persistente de ingresos, gastos, cuentas por cobrar/pagar, activos y préstamos; historial editable con cierre/restauración y un dashboard basado en los registros de cada empresa. Los pendientes de ingresos/gastos se guardan atómicamente, sin duplicar importes. Se conservan autenticación, onboarding, multiempresa, roles, sedes y temas claro/oscuro. No incluye importadores, IA, simuladores ni integraciones.
+
+Ver [modelo, reglas y alcance financiero](docs/sprint-2a.md).
 
 ## Stack
 
 Next.js **16.3.8**, App Router, React, TypeScript estricto, Tailwind CSS 4, componentes con la arquitectura de shadcn/ui y **Base UI**, Lucide, next-themes, Zod y Supabase PostgreSQL/Auth. Geist se sirve localmente. Server Components y Server Actions usan Node.js; no se necesita clave de servicio.
 
-Recharts, React Hook Form y Storage se incorporarán cuando un sprint requiera gráficos, formularios complejos o archivos.
+Los gráficos de barras usan HTML/CSS y muestran los importes de forma accesible. Los cálculos monetarios usan decimales PostgreSQL y centavos enteros (BigInt), sin flotantes para sumar dinero.
 
 ## Requisitos e inicio
 
@@ -39,7 +41,7 @@ Si faltan URL o clave pública, registro y acceso se deshabilitan con un mensaje
 
 ## Supabase hospedado
 
-1. Crea el proyecto y aplica ambas migraciones, en orden, con el editor SQL o `supabase db push` tras enlazar el CLI. Verifica el proyecto de destino.
+1. Crea el proyecto y aplica las migraciones, en orden, con el editor SQL o `supabase db push` tras enlazar el CLI. Verifica el proyecto de destino.
 2. Configura URL y clave publishable en el despliegue.
 3. En Authentication → URL Configuration define el origen y permite exactamente `<origen>/auth/confirm`.
 4. Activa confirmación de correo y configura SMTP. Para confirmaciones que funcionen también en otro navegador, usa en la plantilla Confirm signup: `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email`. También se admite PKCE con el enlace estándar de Supabase.
@@ -57,7 +59,7 @@ pnpm lint                # ESLint
 pnpm test                # Validaciones y roles
 pnpm build               # Compilación de producción
 pnpm start               # Servir la compilación
-pnpm db:test             # 22 pruebas pgTAP locales; rollback
+pnpm db:test             # Pruebas pgTAP locales; rollback
 MINOS_E2E_AUTH=1 pnpm test:e2e # Recorrido real, solo Supabase LOCAL
 ```
 

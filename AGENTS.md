@@ -1,6 +1,6 @@
 # Minos
 
-- Implement only the approved sprint. Current scope: Sprint 1. Do not start Sprint 2 without explicit user approval.
+- Implement only the approved sprint. Current scope: Sprint 2A, explicitly approved in docs/sprint-2a.md. Do not start later blocks without user approval.
 - Use the existing checkout; cloud tasks are isolated. Do not create a worktree unless requested.
 - Minos complements accounting software. Spanish UI, simple business language, progressive detail.
 - Never fabricate money, transactions, categories, relationships, trends, exchange rates or explanations. Welcome states must be honest about missing financial data.
@@ -12,7 +12,7 @@
 - Schema changes require migrations, updated types, SQL security tests and documentation. Important history needs restorable operations and auditing.
 - Future money fields use PostgreSQL numeric/decimal, never float. Financial periods use company timezone; system timestamps use UTC.
 - Use Ocean CSS tokens, tabular numerals, Base UI/shadcn primitives, accessible labels and keyboard focus. Test light/dark and mobile.
-- Financial modules, imports, payments, budgets, goals and reports are future sprints. AI, forecasting, banking/accounting integrations and a general ledger are out of scope.
+- Sprint 2A allows manual financial capture, outstanding balances, history and an initial dashboard. Imports, payment integrations, budgets, goals and advanced reports are future blocks. AI, forecasting, banking/accounting integrations and a general ledger are out of scope.
 - Before finishing: `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`. With local Supabase: `pnpm db:test` and `MINOS_E2E_AUTH=1 pnpm test:e2e`.
 - SQL tests roll back. Browser tests create clearly named QA accounts/companies in LOCAL only. Never run them against production.
 

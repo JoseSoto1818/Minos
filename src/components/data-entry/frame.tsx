@@ -76,8 +76,8 @@ export function EntryAvailability() {
         aria-hidden="true"
       />
       <p>
-        Por ahora puedes explorar las opciones. La captura y el guardado de
-        información estarán disponibles próximamente.
+        La entrada manual ya guarda tus datos y actualiza tus números. La carga
+        de archivos y la plantilla estarán disponibles en otra etapa.
       </p>
     </div>
   );

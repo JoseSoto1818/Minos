@@ -33,12 +33,12 @@ export default function Guide() {
           {
             Icon: Compass,
             title: "Lo que puedes hacer hoy",
-            text: "Configura tu negocio, agrega sedes, cambia entre empresas y elige cómo quieres ver Minos.",
+            text: "Registra ingresos, gastos, cuentas, activos y préstamos. Consulta tus números en Inicio y edita tus registros desde Historial.",
           },
           {
             Icon: HeartHandshake,
             title: "Lo que viene después",
-            text: "La entrada de datos, las ventas, los costos y los resultados llegarán en la siguiente etapa. Aquí no mostramos cifras de ejemplo como si fueran tuyas.",
+            text: "La carga de archivos y las herramientas avanzadas llegarán en otra etapa. Tus indicadores actuales se calculan únicamente con los datos que registras.",
           },
           {
             Icon: ShieldCheck,

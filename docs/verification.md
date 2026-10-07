@@ -59,3 +59,23 @@ TypeScript, lint y build correctos; 7 pruebas unitarias, 22 comprobaciones SQL y
 - [Opciones en modo oscuro](screenshots/entrada-inicial/opciones-oscuro-escritorio.png)
 
 No se incorporan cálculos, persistencia financiera, importadores ni IA. No cambia el esquema, RLS, autenticación ni las acciones existentes. Esta extensión visual no supone comenzar el Sprint 2 completo ni hacer merge.
+
+## Sprint 2A: captura financiera persistente
+
+TypeScript, lint y build de producción correctos. Pasan 14 pruebas unitarias, 68 comprobaciones SQL (46 financieras y las 22 de Sprint 1) y 4 recorridos Playwright en escritorio/móvil, sin pruebas omitidas.
+
+Cobertura: los seis formularios guardan en Supabase local; ingreso/gasto pendiente crea su cuenta sin duplicados; edición, cierre/restauración y eliminación confirmada; rechazo de importes inválidos y versiones antiguas; aislamiento de las cinco entidades, roles lector/contador/propietario y auditoría; dashboard con importes persistidos, moneda actual, filtros de período y conservación del formulario ante errores. Las cuentas vinculadas también se cierran automáticamente al guardar un pago completo y conservan el pago anterior para restaurar.
+
+Capturas de la compilación de producción revisadas sin errores de consola ni desbordamiento horizontal. Muestran datos QA guardados mediante los formularios en Supabase local, no datos incorporados ni mocks en el producto:
+
+- [Dashboard escritorio claro](screenshots/sprint-2a/dashboard-escritorio-claro.png)
+- [Dashboard escritorio oscuro](screenshots/sprint-2a/dashboard-escritorio-oscuro.png)
+- [Inicio móvil](screenshots/sprint-2a/inicio-movil-claro.png)
+- [Dashboard móvil completo](screenshots/sprint-2a/dashboard-movil-claro.png)
+- [Dashboard móvil oscuro](screenshots/sprint-2a/dashboard-movil-oscuro.png)
+- [Formulario escritorio](screenshots/sprint-2a/formulario-escritorio.png)
+- [Formulario móvil](screenshots/sprint-2a/formulario-movil.png)
+- [Historial escritorio](screenshots/sprint-2a/historial-escritorio.png)
+- [Historial móvil](screenshots/sprint-2a/historial-movil.png)
+
+Migración nueva: `202610070001_financial_entry.sql`. Debe aplicarse antes de desplegar la aplicación. Las definiciones de indicadores, permisos y límites están en [Sprint 2A](sprint-2a.md). No se desplegó en producción ni se hizo merge.
